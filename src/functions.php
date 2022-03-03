@@ -322,7 +322,6 @@ function displayProduit(){
   //Affichage product avec photo
   $result = '<h1> Liste des musiques</h1>';
 foreach ($dataProduct as $key => $value) {
-  
   if(!isset($_SESSION["customer"])){
 
     $result .= '<div class="card" style="width: 18rem; display:inline-block;">
