@@ -1,5 +1,5 @@
 <?php 
- session_start();
+
 //creation de constante utiliser pour le lien des dossier
 define("SRC" ,  dirname(__FILE__));
 define("ROOT" ,  dirname(SRC));

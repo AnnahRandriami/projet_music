@@ -1,5 +1,5 @@
 <?php 
- session_start();
+
 // message pour chaque page selectionné pas l'utilisateur
 
 function displayAcceuil(){
@@ -355,10 +355,10 @@ foreach ($dataProduct as $key => $value) {
 function displaySearch(){
   global $model;
   global $url;
-  global $category;
-  $result =  '<h1> Musique du genre: '.$category[$url[1]-1] ["Genre"].' </h1>';
-  $dataProduct = $model->getSearch(null,$url[1]);
-  foreach ($dataProduct as $key => $value) {
+  global $category2;
+  $result =  '<h1> Musique du genre: '.$category2[$url[1]-1] ["Genre"].' </h1>';
+  $category2 = $model->getSearch(null,$url[1]);
+  foreach ($category2 as $key => $value) {
   
     if(!isset($_SESSION["customer"])){
   

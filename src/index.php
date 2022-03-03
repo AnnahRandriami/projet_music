@@ -1,5 +1,5 @@
 <?php 
- session_start();
+ 
 require "include.php";
  // tranforme le PATH_INFO en tableau avec le nom de chaque page
 $url = trim($_SERVER['PATH_INFO'], '/');
