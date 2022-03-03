@@ -16,6 +16,9 @@ require MODEL.SP."DataLayer.class.php";
 $model = new DataLayer();
 $category = $model->getCategory();
 $data = $model->getProduct();
+$didi = $model->getSearch("fhgd");
+//$data = $model->uptadeInfoCustomers();
+//$data = $model->getSearch(a);
 //print_r($data);exit();
 
 /* affiche sur l'ecran le chemin 

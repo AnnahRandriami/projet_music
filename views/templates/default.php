@@ -6,14 +6,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/var/www/html/projet_zik/src/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title> <?php echo $title ?> </title>
 </head>
+<style>
+    body {
+      background-image: url('https://www.onisep.fr/var/onisep/storage/images/_aliases/article_visuel_660_440/media/images/toute-l-actualite-nationale/juin-2013/les-metiers-de-la-musique/12832676-1-fre-FR/Les-metiers-de-la-musique.jpg');
+      text-align :center;
+    }
 
+    h1{
+        color: whitesmoke;
+    }
+.container form{
+padding-top: 20px;
+width: 90%; 
+padding-left: 1px;
+margin-left: 20px;
+height: 500px;
+flex-direction: column;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50px;
+}
+form:hover{
+  background-color: #efefef; 
+}
+.navbar{
+  
+  border-color:transparent !important;
+}
+
+.nav-link{
+    border-color: white;
+    color: white;
+    background-color: black;
+}
+.navbar a{
+    color: white;
+}
+
+.navbar a .btn{
+    color: black;
+}
+.navbar a:hover{
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+
+navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
+    color: #555555;
+    background-color: #e7e7e7;
+}
+
+
+  </style>
 <body>
     <!--navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fecba1;;">
+    <nav class="navbar navbar-expand-lg navbar-bg-light " >
 
         <div class="container-fluid">
 
@@ -22,7 +75,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse position-relative top-1 start-50 translate-middle-x" style="z-index:9" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse" style="z-index:9" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="<?php echo BASE_URL . SP . "acceuil" ?>">Acceuil</a>
@@ -34,7 +87,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Genre
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color:black">
 
                             <?php
                             foreach ($category as $key => $value) {
@@ -48,9 +101,8 @@
                     </li>
 
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-danger me-5" type="submit">Search</button>
+                <form class="d-flex" action ="actionsearch">
+                <a class="nav-link active" aria-current="page" href="<?php echo BASE_URL . SP . "search" ?>">Search</a>
                 </form>
             </div>
 
@@ -58,14 +110,15 @@
 
             <div class="d-grid gap-1 d-md-flex justify-content" style="z-index:999">
                 <?php if (!isset($_SESSION["customer"])) : ?>
-                    <a class="btn btn-outline-danger" type="submit" href="<?php echo BASE_URL . SP . "connexion" ?>">Connexion</a>
-                    <a class="btn btn-outline-danger" type="submit" href="<?php echo BASE_URL . SP . "acceuil" ?>">Inscription</a>
+                    <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "connexion" ?>">Connexion</a>
+                    <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "acceuil" ?>">Inscription</a>
                 <?php endif; ?>
 
 
                 <?php if (isset($_SESSION["customer"])) : ?>
-                    <a class="btn btn-outline-danger" type="submit" href="<?php echo BASE_URL . SP . "Deconnexion" ?>">Deconnexion</a>
-                    <a class="btn btn-outline-danger" type="submit" href="<?php echo BASE_URL . SP . "profil" ?>">Profil</a>
+                    <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "Deconnexion" ?>">Deconnexion</a>
+                    <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "profil" ?>">Profil</a>
+                    <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "ajout" ?>">Ajouter</a>
                 <?php endif; ?>
                 
             </div>

@@ -5,7 +5,8 @@ require "include.php";
 $url = trim($_SERVER['PATH_INFO'], '/');
     $url = explode('/', $url);
     $route = array("acceuil", "contact" , "produit" , "panier",
-     "category" ,"actionInscription","actionConnexion" ,"updateProfil","profil" , "Deconnexion" , "connexion");
+     "category" ,"actionInscription","actionConnexion" ,"updateProfil","profil" , 
+     "Deconnexion" , "connexion", "actionUptade", "search" , "ajout" , "actionajout");
     $action = $url [0];
 
     // recupere la  première page du site 

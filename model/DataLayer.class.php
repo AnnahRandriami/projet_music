@@ -37,6 +37,30 @@ function createCustomers ($firstname, $lastname, $email,$pwd){
 
 }
 
+function ajoutMusique($title, $descriptions,$auteur, $lien){
+    //requete insertion dans table customers de la base de donnée
+   $sql = "INSERT INTO `music`(title, descriptions, auteur, lien) VALUES 
+    ( :title, :descriptions, :auteur, :lien)";
+    try {
+        //test si requete fait
+        $result = $this->connexion->prepare($sql);
+      $var = $result -> execute(array(
+          ':title' => $title,
+          ':descriptions' => $descriptions,
+            ':auteur' => $auteur,
+            ':lien' => $lien,
+        ));
+        if($var){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    } catch (PDOException $th) {
+       return NULL; 
+    }
+
+}
+
 function login($email,$pwd){
      $sql = "SELECT * FROM users WHERE email = :email";  
 
@@ -57,6 +81,8 @@ function login($email,$pwd){
      }
      
 }
+
+
 
 /*function createOrders($idcustomers, $idproduct, $quantity, $price){
     $sql = "INSERT INTO `orders`(idcustomers, idproduct, quantity, price) VALUES 
@@ -122,6 +148,8 @@ function getCategory(){
 }
 
 
+
+
 function getProduct($limit=NULL , $category=NULL){
     $sql = "SELECT * FROM music ";
     try {
@@ -145,6 +173,28 @@ function getProduct($limit=NULL , $category=NULL){
         //throw $th;
     }
 }
+ 
+function getSearch($category=NULL){
+    $sql = "SELECT * FROM music ";
+    try {
+        if(!is_null($category)){
+            $sql .= ' WHERE title LIKE = ' .$category . '%';
+       }
+      //print_r($sql); exit();
+        $result = $this->connexion->prepare($sql);
+        $var = $result->execute();
+        //recup tout les elements
+        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+        if($data){
+            return $data;
+        }else{
+            return FALSE;
+        }
+    } catch (PDOException $th) {
+        //throw $th;
+    }
+}
+
 
 
 }
