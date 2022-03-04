@@ -1,8 +1,9 @@
 <?php 
-
+//session_start();
 // message pour chaque page selectionné pas l'utilisateur
 
 function displayAcceuil(){
+  session_start();
   if(!isset($_SESSION["customer"])){
     $result = '
 
@@ -12,7 +13,6 @@ function displayAcceuil(){
      
     <div class="mb-4 col-md4 col-md-offset-4 text-center ">
         <h2 class="h4 align-items-center">Veuillez créez un compte</h2>
-        <h2 class="h4">INSCRIPTION</h2>
      </div>
 
 
@@ -20,7 +20,7 @@ function displayAcceuil(){
     <div class=" mb-3">
     <div class=" mb-3">
     <div class="form-group col-md4 col-md-offset-4 text-center">
-        <label for="Nom">Nom</label>
+    
           <input type="text" id="Nom" name="firstname" class="form-control " value="" required="" placeholder="Entrer votre Nom">
         </div>
         </div>
@@ -29,33 +29,32 @@ function displayAcceuil(){
 
       <!-- Input -->
       <div class=" mb-3">
-      <div class="form-group col-md4 col-md-offset-4 text-center">
-      <label for="Prenom">Prénom</label>
+   
         <div class="input-group input-group form">
           <input type="text" id="Prenom" name="lastname" class="form-control " value="" required="" placeholder="Entrer votre Prénom">
-        </div>
+        
           </div>
       </div>
       <!-- End Input -->
 
       <!-- Input -->
       <div class=" mb-3">
-      <div class="form-group col-md4 col-md-offset-4 text-center">
-      <label for="Nom">Email</label>
+   
+    
         <div class="input-group input-group form">
           <input type="email" id="email" class="form-control " name="email" value="" required="" placeholder="Entrez votre adresse email">
-        </div>
+       
         </div>
       </div>
       <!-- End Input -->
 
       <!-- Input -->
-      <div class=" col-md4 col-md-offset-4 text-center">
+
       <div class="form-group col-md4 col-md-offset-4 text-center">
-        <label for="pwd">Mot de passe</label>
+     
           <input type="password" id ="pwd"class="form-control " name="pwd" value="" required="" placeholder="Entrez votre mot de passe">
         </div>
-      </div>
+  
       <!-- End Input -->
       <div class="mt-1 col-md4 col-md-offset-4 text-center">
       <button type="submit" class="btn btn-block btn-primary">S\'inscrire</button>
@@ -65,7 +64,7 @@ function displayAcceuil(){
   
 ';
   }else{
-    $result = '<h2 class="mt-5 mr-5"> Bienvenue sur votre site de musique préféré </h2>
+    $result = '<h1 class="mt-5 mr-5"> Bienvenue sur votre site de musique préféré </h1>
     <img src="'.BASE_URL.SP."image".SP."produit".SP."cheers-g6f8d5100c_1920.jpg".'" class="card-img-top" alt="...">
     ';
   }
@@ -73,6 +72,7 @@ function displayAcceuil(){
 }
 
 function displayProfil(){
+  session_start();
     $result = '
     <ul class="list-group mt-5 mx-auto" style = "width : 30%" >
     <li class="list-group-item active" aria-current="true">Bienvenu sur votre profil '.$_SESSION['customer']["lastname"].'</li>
@@ -86,23 +86,8 @@ function displayProfil(){
 return($result);
 }
 
-function displayactionConnexion(){
-  global $model;
-  // print_r($_REQUEST); exit();
-   $email = $_REQUEST["email"];
-   $pwd = $_REQUEST["pwd"];
-   $data_customer = $model->login($email,$pwd);
-   //ok
-     if($data_customer){
-       $_SESSION["customer"] = $data_customer;
-       return '<p class="btn btn-success btn-block">Connexion reussi, vous êtes bien connecté</p>'.displayAcceuil();
-     
-   }else{ // connexion echoué
-    return '<p class=" btn btn-danger btn-block">non échouée ,email existant</p>'.displayProduit();
-      }
-   }
-
 function displayactionInscription(){
+  session_start();
   global $model;
  // print_r($_REQUEST); exit();
   $firstname = $_REQUEST["firstname"];
@@ -122,8 +107,9 @@ function displayactionInscription(){
      }
   }
 }
+//AJOUT MUSIC
 function displayAjout(){
-
+  session_start();
     $result = '<div class="bg-white shadow-sm rounded p-6  mt-5 mx-auto" style = "width : 30%">
     <form class="" action="actionAjout" method="post">
       <div class="mb-4">
@@ -171,7 +157,11 @@ function displayAjout(){
   
     return $result;
 }
+
+
+//ACTION AJOUT
 function displayactionAjout(){
+  session_start();
   global $model;
  // print_r($_REQUEST); exit();
   $title = $_REQUEST["title"];
@@ -184,9 +174,12 @@ function displayactionAjout(){
 
 }
 
+//CONNEXION
+
 function displayConnexion(){
+  session_start();
   $result = '<div class="bg-white mt-5 mx-auto shadow-sm rounded p-6" style = "width:30%">
-  <form class="" action="actionInscription" method="post">
+  <form class="" action="actionConnexion" method="post">
     <div class="mb-4">
       <h2 class="h4">Connexion</h2>
     </div>
@@ -214,109 +207,65 @@ function displayConnexion(){
 
 }
 
+//ACTION CONNEXION
+function displayactionConnexion(){
+  session_start();
+  global $model;
+  // print_r($_REQUEST); exit();
+   $email = $_REQUEST["email"];
+   $pwd = $_REQUEST["pwd"];
+   $data_customer = $model->login($email,$pwd);
+   //ok
+     if($data_customer){
+       $_SESSION["customer"] = $data_customer;
+       return '<p class="btn btn-success btn-block">Connexion reussi, vous êtes bien connecté</p>'.displayAcceuil();
+     
+   }else{ // connexion echoué
+    return '<p class=" btn btn-danger btn-block">Erreur, identifiant non valide</p>'.displayProduit();
+      }
+   }
+
+//ACTION DECONNEXION
+function displayDeconnexion(){
+  session_start();
+  $result = '<p class="btn btn-success btn-block">Vous etes déconnecté</p>';
+  unset($_SESSION["customer"]);
+  return $result.displayProduit();
+}
+
+
+
+//CONTACTER
 function displayContact(){
+  session_start();
 
     $result = '<h1> Bienvenue sur la page de contact </h1>';
   $result .='<!--Section: Contact v.2-->
-  <section class="mb-4">
-  
-      <!--Section heading-->
-      <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-      <!--Section description-->
-      <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-          a matter of hours to help you.</p>
-  
-      <div class="row">
-  
-          <!--Grid column-->
-          <div class="col-md-9 mb-md-0 mb-5">
-              <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-  
-                  <!--Grid row-->
-                  <div class="row">
-  
-                      <!--Grid column-->
-                      <div class="col-md-6">
-                          <div class="md-form mb-0">
-                              <input type="text" id="name" name="name" class="form-control">
-                              <label for="name" class="">Your name</label>
-                          </div>
-                      </div>
-                      <!--Grid column-->
-  
-                      <!--Grid column-->
-                      <div class="col-md-6">
-                          <div class="md-form mb-0">
-                              <input type="text" id="email" name="email" class="form-control">
-                              <label for="email" class="">Your email</label>
-                          </div>
-                      </div>
-                      <!--Grid column-->
-  
-                  </div>
-                  <!--Grid row-->
-  
-                  <!--Grid row-->
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="md-form mb-0">
-                              <input type="text" id="subject" name="subject" class="form-control">
-                              <label for="subject" class="">Subject</label>
-                          </div>
-                      </div>
-                  </div>
-                  <!--Grid row-->
-  
-                  <!--Grid row-->
-                  <div class="row">
-  
-                      <!--Grid column-->
-                      <div class="col-md-12">
-  
-                          <div class="md-form">
-                              <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                              <label for="message">Your message</label>
-                          </div>
-  
-                      </div>
-                  </div>
-                  <!--Grid row-->
-  
-              </form>
-  
-              <div class="text-center text-md-left">
-                  <a class="btn btn-primary" onclick="..">Send</a>
-              </div>
-              <div class="status"></div>
-          </div>
-          <!--Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-md-3 text-center">
-              <ul class="list-unstyled mb-0">
-                  <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                      <p>San Francisco, CA 94126, USA</p>
-                  </li>
-  
-                  <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                      <p>+ 01 234 567 89</p>
-                  </li>
-  
-                  <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                      <p>contact@mdbootstrap.com</p>
-                  </li>
-              </ul>
-          </div>
-          <!--Grid column-->
-  
-      </div>
-  
-  </section>
-  <!--Section: Contact v.2-->';
+
+  <div class="bg-white shadow-sm rounded p-6  mt-5 mx-auto" style = "width : 70%">
+  <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="name" class="h4">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" required>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="email" class="h4">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="message" class="h4 ">Message</label>
+            <textarea id="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
+        </div>
+        <button type="submit" id="form-submit" class="btn btn-success btn-lg pull-right ">Submit</button>
+<div id="msgSubmit" class="h3 text-center hidden">Message Submitted!</div>
+  </div>';
     return $result;
 }
 
+//AFFICHER PRODUIT
 function displayProduit(){
+  session_start();
   global $model; 
   $dataProduct = $model->getProduct();
   //Affichage product avec photo
@@ -352,7 +301,10 @@ foreach ($dataProduct as $key => $value) {
    return $result;
         }
 
+ //RECHERCHE
+
 function displaySearch(){
+  session_start();
   global $model;
   global $url;
   global $category2;
@@ -361,8 +313,12 @@ function displaySearch(){
   foreach ($category2 as $key => $value) {
   
     if(!isset($_SESSION["customer"])){
-  
-      $result .= '<div class="card" style="width: 18rem; display:inline-block;">
+     
+      $result .= '
+      <div class="card" style="width: 18rem; display:inline-block;">
+
+     
+
       <img src="'.BASE_URL.SP."image".SP."produit".SP.$value["image"].'" class="card-img-top" alt="...">
          <div class="card-body">
          <h5 class="card-title">'.$value["title"].'</h5>
@@ -373,7 +329,7 @@ function displaySearch(){
   
     }else{
   
-      $result .= '<div class="card" style="width: 18rem; display:inline-block;">
+      $result .= '<div class="card"actionConnexion style="width: 18rem; display:inline-block;">
       <img src="'.BASE_URL.SP."image".SP."produit".SP.$value["image"].'" class="card-img-top" alt="...">
          <div class="card-body">
          <h5 class="card-title">'.$value["title"].'</h5>
@@ -390,11 +346,13 @@ function displaySearch(){
      return $result;
 
 }
+
 function displayactionUptade(){
  // print_r($_POST); exit();
 }
 
 function displayCategory(){
+  session_start();
   global $model;
   global $url;
   global $category;
@@ -417,7 +375,7 @@ function displayCategory(){
   
       $result .= '<div class="card" style="width: 18rem; display:inline-block;">
       <img src="'.BASE_URL.SP."image".SP."produit".SP.$value["image"].'" class="card-img-top" alt="...">
-         <div class="card-body">
+         <div class="actionConnexioncard-body">
          <h5 class="card-title">'.$value["title"].'</h5>
          <p class="card-text">'.$value["genre"].'</p>
          <p class="card-text">'.$value["description"].'</p>
@@ -434,6 +392,7 @@ function displayCategory(){
 
 
           function DisplayUpdateProfil(){
+            session_start();
             $result = '
             <div class="bg-white shadow-sm rounded p-6  mt-5 mx-auto" style = "width : 30%">
 
@@ -480,13 +439,6 @@ function displayCategory(){
 
             return $result;
           }
-
-          function displayDeconnexion(){
-            $result = '<h1> Vous etes deconnecte';
-            unset($_SESSION["customer"]);
-            return displayProduit();
-          }
-
 
           
 

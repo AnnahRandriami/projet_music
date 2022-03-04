@@ -11,11 +11,10 @@
 </head>
 <style>
     body {
-      background-image: url('https://www.onisep.fr/var/onisep/storage/images/_aliases/article_visuel_660_440/media/images/toute-l-actualite-nationale/juin-2013/les-metiers-de-la-musique/12832676-1-fre-FR/Les-metiers-de-la-musique.jpg');
+      background-image: url('https://www.musikinflu.com/wp-content/uploads/2020/05/band-stage-aqua-Vedran-DOlezal-de-Pixabay.jpg');
       text-align :center;
     }
-
-    h1{
+    h1, h3{
         color: whitesmoke;
     }
 .container form{
@@ -90,6 +89,7 @@ navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color:black">
 
                             <?php
+                            session_start();
                             foreach ($category as $key => $value) {
                                 echo '<a class="dropdown-item" href="' . BASE_URL . SP . "category" . SP . $value["idGenre"] . '">' . $value["Genre"] . '</a>';
                             }
@@ -109,13 +109,13 @@ navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
 
 
             <div class="d-grid gap-1 d-md-flex justify-content" style="z-index:999">
-                <?php if (!isset($_SESSION["customer"])) : ?>
+                <?php session_start(); if (!isset($_SESSION["customer"])) : ?>
                     <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "connexion" ?>">Connexion</a>
                     <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "acceuil" ?>">Inscription</a>
                 <?php endif; ?>
 
 
-                <?php if (isset($_SESSION["customer"])) : ?>
+                <?php session_start(); if (isset($_SESSION["customer"])) : ?>
                     <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "Deconnexion" ?>">Deconnexion</a>
                     <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "profil" ?>">Profil</a>
                     <a class="btn btn-outline" type="submit" href="<?php echo BASE_URL . SP . "ajout" ?>">Ajouter</a>

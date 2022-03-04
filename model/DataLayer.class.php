@@ -1,5 +1,5 @@
 <?php 
-
+//session_start();
 class DataLayer{
     private $connexion; 
     //test si la connexion avec la database de mysql est fait
