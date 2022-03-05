@@ -37,10 +37,10 @@ function createCustomers ($firstname, $lastname, $email,$pwd){
 
 }
 
-function ajoutMusique($title, $descriptions,$auteur, $lien){
+function ajoutMusique($title, $descriptions,$auteur, $lien, $genre){
     //requete insertion dans table customers de la base de donnée
-   $sql = "INSERT INTO `music`(title, descriptions, auteur, lien) VALUES 
-    ( :title, :descriptions, :auteur, :lien)";
+   $sql = "INSERT INTO `music`(title, descriptions, auteur, lien ,genre) VALUES 
+    ( :title, :descriptions, :auteur, :lien, :genre)";
     try {
         //test si requete fait
         $result = $this->connexion->prepare($sql);
@@ -49,6 +49,7 @@ function ajoutMusique($title, $descriptions,$auteur, $lien){
           ':descriptions' => $descriptions,
             ':auteur' => $auteur,
             ':lien' => $lien,
+            ':genre' => $genre,
         ));
         if($var){
             return TRUE;
@@ -63,7 +64,6 @@ function ajoutMusique($title, $descriptions,$auteur, $lien){
 
 function login($email,$pwd){
      $sql = "SELECT * FROM users WHERE email = :email";  
-
      try {
          //code...
          $result = $this->connexion->prepare($sql);
@@ -81,6 +81,58 @@ function login($email,$pwd){
      }
      
 }
+
+
+function choixGenre(){
+ $sql =  "SELECT Genre FROM music WHERE genre is NOT NULL GROUP BY genre ";  
+ try {
+     $result = $this->connexion->prepare($sql);
+     $var = $result->execute();
+     $data = $result->fetchAll(PDO::FETCH_ASSOC);
+     if($data){
+        return $data;
+    }else{
+        return FALSE;
+    }
+} catch (PDOException $th) {
+   return NULL; 
+}
+}
+
+function delete(){
+    $sql =  "DELETE FROM `music` WHERE genre IS NULL";  
+    try {
+        $result = $this->connexion->prepare($sql);
+        $var = $result->execute();
+        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+        if($data){
+           return $data;
+       }else{
+           return FALSE;
+       }
+   } catch (PDOException $th) {
+      return NULL; 
+   }
+   }
+
+   function ajoutOKK($genre){
+    $sql =  "UPDATE music SET genre = :genre WHERE genre IS NULL";  
+    try {
+        $result = $this->connexion->prepare($sql);
+        $data = $result->fetch(PDO::FETCH_ASSOC);
+        $result->execute(array(':genre' => $genre));
+        $var = $result->execute();
+        if($var){
+           return $var;
+       }else{
+           return FALSE;
+       }
+   } catch (PDOException $th) {
+      return NULL; 
+   }
+   }
+
+  
 
 
 

@@ -14,9 +14,12 @@ require CONFIG.SP."config.php";
 require MODEL.SP."DataLayer.class.php";
 
 $model = new DataLayer();
-$category = $model->getCategory();
+$category = $model->ChoixGenre();
 $data = $model->getProduct();
-$didi = $model->getSearch("fhgd");
+//print_r($category);exit();
+//$didi = $model->getSearch("fhgd");
+
+
 //$data = $model->uptadeInfoCustomers();
 //$data = $model->getSearch(a);
 //print_r($data);exit();

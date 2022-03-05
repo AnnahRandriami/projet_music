@@ -10,6 +10,7 @@
     <title> <?php echo $title ?> </title>
 </head>
 <style>
+
     body {
       background-image: url('https://www.musikinflu.com/wp-content/uploads/2020/05/band-stage-aqua-Vedran-DOlezal-de-Pixabay.jpg');
       text-align :center;
@@ -18,10 +19,9 @@
         color: whitesmoke;
     }
 .container form{
-padding-top: 20px;
+padding: 30px;
 width: 90%; 
-padding-left: 1px;
-margin-left: 20px;
+margin-left: 15px;
 height: 500px;
 flex-direction: column;
 display: flex;
@@ -29,9 +29,7 @@ justify-content: center;
 align-items: center;
 border-radius: 50px;
 }
-form:hover{
-  background-color: #efefef; 
-}
+
 .navbar{
   
   border-color:transparent !important;
@@ -53,8 +51,6 @@ form:hover{
     color: white;
     font-size: 1.5rem;
 }
-
-
 
 navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
     color: #555555;
